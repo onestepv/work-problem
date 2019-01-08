@@ -32,7 +32,7 @@
 	});
 #### 3.发现底部按钮在输入框失焦之后，按钮点击无效（按钮好像脱离了页面），需要向下划一下页面，才能点击按钮
 	Element.scrollIntoView() 可以让元素滚动到可窗口可视区域。
-	focusout() 方法,是body或其任意子元素失去焦点时	
+	focusout() 方法,使body或其任意子元素失去焦点时触发：
 	that.$rootDom =======》 body
 	that.$rootDom.focusout(function () {
 		that.$rootDom[0].scrollIntoView(false);  //false 窗口会尽量滚动自身底部与元素底部对齐
