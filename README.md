@@ -1,7 +1,7 @@
 # work-problem
 整理下工作中遇到的问题
 
-1.需求： 监听input的输入，有值时，按钮高亮，反之，置灰
+#### 1.需求： 监听input的输入，有值时，按钮高亮，反之，置灰
 	
 	setDisabled: function () {
 	 /**
@@ -17,83 +17,26 @@
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 	window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) { var id = window.setTimeout(callback, 1000 / 60); return id; };
 	var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || function (id) { clearTimeout(id); };
-
-2.bind apply call
-
-	当我们使用一个函数需要改变this指向的时候才会用到call`apply`bind
-	如果你要传递的参数不多，则可以使用fn.call(thisObj, arg1, arg2 ...)
-	如果你要传递的参数很多，则可以用数组将参数整理好调用fn.apply(thisObj, [arg1, arg2 ...])
-	如果你想生成一个新的函数长期绑定某个函数给某个对象使用，则可以使用const newFn = fn.bind(thisObj); 
-	newFn(arg1, arg2...)
-	
-3.写一个简单的Promise对象
-		
-		function aaa () {
-			this.size = 2;
-			this.width = 100;
-			return new Promise(function (res, rej) {
-				if (this.size == 1) {
-					res(this.size)
-				} else {
-					res(this.width)
-				}
-			})
+#### 2.在一个页面中，底部按钮固定，点击输入框时，发现底部按钮会被键盘顶起来（安卓手机出现）
+	that.$btn = that.$rootDom.find('.sub-btn'); //底部按钮
+	var winHeight = $(window).height();  //获取当前页面高度
+	$(window).resize(function () {    //当调整浏览器窗口的大小时，发生 resize 事件。
+		var thisHeight = $(this).height();
+		if (winHeight - thisHeight > 50) {
+			//当软键盘弹出，在这里面操作
+			that.$btn.css("position", "static")
+		} else {
+			//当软键盘收起，在此处操作
+			that.$btn.css("position", "absolute")
 		}
-		aaa().then(e => {console.log(e)}).catch(e => {console.log(e)})
-		
-4.propototy
+	});
+#### 3.发现底部按钮在输入框失焦之后，按钮点击无效（按钮好像脱离了页面），需要向下划一下页面，才能点击按钮
+	Element.scrollIntoView() 可以让元素滚动到可窗口可视区域。
+	focusout() 方法,是body或其任意子元素失去焦点时	
+	that.$rootDom =======》 body
+	that.$rootDom.focusout(function () {
+		that.$rootDom[0].scrollIntoView(false);  //false 窗口会尽量滚动自身底部与元素底部对齐
+	})
 
-		function aaa () {
-				this.size = 2;
-				this.width = 100;
-		}
-		aaa.prototype = {
-				constructor: aaa,
-				sum: function (param) {
-						console.log('oops')
-				}
-		}
-		bbb = new aaa();		
-		bbb.sum();		//opps
-		
-5.map
 
-	const items = [
-		['name', '张三'],
-		['title', 'Author']
-	];
-
-	const map = new Map();
-
-	items.forEach(
-		([key, value]) => map.set(key, value)
-	);
-	console.log(map)	
-	console.log([...map])
-
-	for ( let key of map.keys()) {
-		console.log(key)
-	}
-
-	for (let value of map.values()) {
-		console.log(value);
-	}
-
-	for (let item of map.entries()) {
-		console.log(item[0], item[1]);
-	}
-	//或者
-	for (let [key, value] of map.entries()) {
-		console.log(key, value);
-	}
-
-	// 等同于使用map.entries()
-	for (let [key, value] of map) {
-		console.log(key, value);
-	}
-
-	var arr = [...map]    
-	for (let [key, value] of arr) {
-		console.log(key, value);
-	}
 		
