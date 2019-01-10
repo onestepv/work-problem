@@ -37,7 +37,7 @@
 	that.$rootDom.focusout(function () {
 		that.$rootDom[0].scrollIntoView(false);  //false 窗口会尽量滚动自身底部与元素底部对齐
 	})
-#### 4. ![image](https://github.com/xuqian1004/work-problem/blob/master/%E6%8D%95%E8%8E%B7.PNG)
+#### 4. ![image](https://github.com/xuqian1004/work-problem/blob/master/1547106824(1).png)
 	  在小程序中做搜索框的时候，想做到输入框有内容时，右边清除的icon显示，点击清空input内容，但是再真机调试时，发现iphone6下
 	  input框在聚焦时，点击清除icon无效，依然是触发了input（猜想是不是input是原生组件，层级最高的问题，
 	  但是input不聚焦时，可以点击清除按钮）
